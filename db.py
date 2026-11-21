@@ -44,9 +44,14 @@ def get_db_connection():
     except Error as e:
         print(f"\n❌ MySQL Connection Error: {e}")
         print("💡 Helpful Troubleshooting Checklist:")
-        print("  1. If running on Render: Did you add DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT in Render's 'Environment' tab?")
-        print("  2. If running locally: Is MySQL Server running on your system? (Check 'Services' app in Windows for 'MySQL80')")
-        print(f"  3. Attempted settings: Host={Config.DB_HOST}, Port={Config.DB_PORT}, User={Config.DB_USER}, Database={Config.DB_NAME}\n")
+        if os.getenv('RENDER') and Config.DB_HOST in ('localhost', '127.0.0.1'):
+            print("  🚨 ACTION REQUIRED ON RENDER:")
+            print("  Render is trying to connect to 'localhost', but Render runs in the cloud!")
+            print("  Please go to your Render Dashboard -> click 'Environment' -> add your TiDB/cloud variables:")
+            print("  DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME")
+        elif Config.DB_HOST in ('localhost', '127.0.0.1'):
+            print("  1. If running locally: Is MySQL Server running on your system? (Check 'Services' app in Windows for 'MySQL80')")
+        print(f"  Attempted settings: Host={Config.DB_HOST}, Port={Config.DB_PORT}, User={Config.DB_USER}, Database={Config.DB_NAME}\n")
         return None
 
 
