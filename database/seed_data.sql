@@ -3,7 +3,6 @@
 -- Verified educational organisations, categories, and real free courses
 -- =============================================================================
 
-USE educonnect_db;
 
 -- -----------------------------------------------------------------------------
 -- 1. Insert Categories (8 Core Academic & Tech Topics)

@@ -3,12 +3,6 @@
 -- Compatible with MySQL 8.0+ and Cloud MySQL instances
 -- =============================================================================
 
--- Create Database if not exists
-CREATE DATABASE IF NOT EXISTS educonnect_db
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
-USE educonnect_db;
 
 -- -----------------------------------------------------------------------------
 -- 1. Table: users
