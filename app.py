@@ -12,11 +12,17 @@ import urllib.error
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
-from db import get_db_connection
+from db import get_db_connection, auto_setup_cloud_db
 
 # Initialize Flask Application
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Automatically initialize cloud database if empty on startup
+try:
+    auto_setup_cloud_db()
+except Exception as _e:
+    pass
 
 
 # ---------------------------------------------------------------------------
