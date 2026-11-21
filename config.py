@@ -23,6 +23,9 @@ class Config:
     DB_PASSWORD = os.getenv('DB_PASSWORD', '')
     DB_NAME = os.getenv('DB_NAME', 'educonnect_db')
 
+    # Optional AI Assistant API Key (Gemini)
+    GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', '')
+
     # Server Port & Debug Mode
     # In cloud hosting (Render, Railway, Heroku), PORT is assigned dynamically by the provider.
     PORT = int(os.getenv('PORT', 5000))

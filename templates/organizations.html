@@ -8,7 +8,7 @@
         <!-- Page Title & Header -->
         <div class="section-header">
             <h2>Educational Platforms Explorer</h2>
-            <p>Discover and compare top learning organisations, explore subject offerings, and check community student ratings</p>
+            <p>Discover and compare top learning organisations, explore subject offerings, check community ratings, and cast your vote</p>
         </div>
 
         <!-- Search and Filter Form -->
@@ -62,7 +62,11 @@
                         <!-- Card Header: Title & Pricing Badge -->
                         <div class="card-header">
                             <div>
-                                <h3 class="card-title">{{ org.name }}</h3>
+                                <h3 class="card-title">
+                                    <a href="{{ url_for('organization_detail', org_id=org.id) }}" style="color: inherit;">
+                                        {{ org.name }}
+                                    </a>
+                                </h3>
                                 {% if org.pricing_type == 'Free' %}
                                     <span class="badge badge-free">100% Free</span>
                                 {% elif org.pricing_type == 'Freemium' %}
@@ -74,8 +78,8 @@
                             <!-- Rating & Vote Count -->
                             <div class="rating">
                                 <span class="stars">★</span> 
-                                <strong>{{ "%.1f"|format(org.rating) }}</strong> 
-                                <span class="votes-count">({{ org.total_votes }} votes)</span>
+                                <strong>{{ (org.rating or 0.0)|round(1) }}</strong> 
+                                <span class="votes-count">({{ org.total_votes or 0 }} votes)</span>
                             </div>
                         </div>
 
@@ -83,14 +87,16 @@
                         <div class="card-body">
                             <p>{{ org.description }}</p>
                             
-                            <div style="margin-top: 1rem;">
-                                <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Available Subjects:</strong>
-                                <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem;">
-                                    {% for subject in org.subjects.split(',') %}
-                                        <span class="badge badge-category">{{ subject.strip() }}</span>
-                                    {% endfor %}
+                            {% if org.subjects %}
+                                <div style="margin-top: 1rem;">
+                                    <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Available Subjects:</strong>
+                                    <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem;">
+                                        {% for subject in org.subjects.split(',') %}
+                                            <span class="badge badge-category">{{ subject.strip() }}</span>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
 
                         <!-- Card Footer: Official Website & Community Action -->
@@ -98,8 +104,8 @@
                             <a href="{{ org.website_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.45rem 0.85rem;">
                                 Official Website ↗
                             </a>
-                            <a href="{{ url_for('courses', q=org.name) }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.45rem 0.85rem;">
-                                View Courses
+                            <a href="{{ url_for('organization_detail', org_id=org.id) }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.45rem 0.85rem;">
+                                Reviews & Vote
                             </a>
                         </div>
                     </div>

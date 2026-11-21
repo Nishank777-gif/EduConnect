@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Educational Statistics Dashboard - EduConnect{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <!-- Header & Live Update Status -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+            <div>
+                <h1 style="font-size: 2rem; color: var(--text-primary); margin-bottom: 0.25rem;">
+                    Educational Statistics Dashboard
+                </h1>
+                <p style="color: var(--text-secondary); font-size: 1rem;">
+                    Real-time metrics, student community voting distribution, and top-ranked educational platforms
+                </p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <span id="live-indicator" style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; color: var(--success); font-weight: 600; background: #dcfce7; padding: 0.35rem 0.75rem; border-radius: 9999px;">
+                    <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%; display: inline-block;"></span>
+                    Live Data
+                </span>
+                <button id="refresh-btn" class="btn btn-outline" style="padding: 0.45rem 0.95rem; font-size: 0.85rem;">
+                    🔄 Refresh Data
+                </button>
+            </div>
+        </div>
+
+        <!-- 1. KPI Summary Cards -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+            <!-- Total Students -->
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 2rem;">👥</span>
+                <h3 id="stat-students" style="font-size: 2rem; font-weight: 800; color: var(--primary); margin: 0.25rem 0;">
+                    {{ total_students }}
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                    Registered Students
+                </p>
+            </div>
+
+            <!-- Total Votes -->
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 2rem;">🗳️</span>
+                <h3 id="stat-votes" style="font-size: 2rem; font-weight: 800; color: var(--accent); margin: 0.25rem 0;">
+                    {{ total_votes }}
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                    Total Community Votes
+                </p>
+            </div>
+
+            <!-- Total Courses -->
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 2rem;">🎓</span>
+                <h3 id="stat-courses" style="font-size: 2rem; font-weight: 800; color: #8b5cf6; margin: 0.25rem 0;">
+                    {{ total_courses }}
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                    Available Free Courses
+                </p>
+            </div>
+
+            <!-- Total Platforms -->
+            <div class="card" style="padding: 1.5rem; text-align: center;">
+                <span style="font-size: 2rem;">🏛️</span>
+                <h3 id="stat-platforms" style="font-size: 2rem; font-weight: 800; color: #0284c7; margin: 0.25rem 0;">
+                    {{ total_platforms }}
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;">
+                    Indexed Organisations
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. Interactive Charts Grid (Chart.js) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+            <!-- Chart 1: Vote Distribution (Pie / Doughnut Chart) -->
+            <div class="card" style="padding: 1.75rem;">
+                <div style="margin-bottom: 1.25rem;">
+                    <h3 style="font-size: 1.2rem; color: var(--text-primary);">
+                        📊 Student Vote Distribution
+                    </h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">
+                        Share of community votes across top educational platforms
+                    </p>
+                </div>
+                <div style="position: relative; height: 320px;">
+                    <canvas id="votesPieChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Chart 2: Platform Ratings Comparison (Bar Graph) -->
+            <div class="card" style="padding: 1.75rem;">
+                <div style="margin-bottom: 1.25rem;">
+                    <h3 style="font-size: 1.2rem; color: var(--text-primary);">
+                        ⭐ Platform Rating Comparison
+                    </h3>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem;">
+                        Average student rating out of 5.0 for top organisations
+                    </p>
+                </div>
+                <div style="position: relative; height: 320px;">
+                    <canvas id="ratingsBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Top 10 Educational Organisations Table -->
+        <div class="card" style="padding: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div>
+                    <h2 style="font-size: 1.4rem; color: var(--text-primary);">
+                        🏆 Official Top 10 Educational Organisations
+                    </h2>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        Ranked dynamically by student community voting and ratings
+                    </p>
+                </div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">
+                    Data refreshed from MySQL
+                </span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="ranking-table" id="ranking-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">Rank</th>
+                            <th>Organisation</th>
+                            <th>Primary Subjects</th>
+                            <th>Learning Model</th>
+                            <th>Student Rating</th>
+                            <th>Total Votes</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-table-body">
+                        {% for org in top_orgs %}
+                            <tr>
+                                <td><span class="rank-badge">{{ loop.index }}</span></td>
+                                <td>
+                                    <strong>{{ org.name }}</strong>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.85rem; color: var(--text-secondary);">
+                                        {{ org.subjects }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if org.pricing_type == 'Free' %}
+                                        <span class="badge badge-free">100% Free</span>
+                                    {% elif org.pricing_type == 'Freemium' %}
+                                        <span class="badge badge-paid">Freemium</span>
+                                    {% else %}
+                                        <span class="badge badge-paid">Paid</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span class="stars">★</span> 
+                                    <strong>{{ (org.rating or 0.0)|round(1) }}</strong> / 5.0
+                                </td>
+                                <td>
+                                    <strong>{{ org.total_votes }}</strong>
+                                </td>
+                                <td style="text-align: right;">
+                                    <a href="{{ url_for('organization_detail', org_id=org.id) }}" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
+                                        Vote & Review
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Dashboard Chart Controller -->
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+{% endblock %}
