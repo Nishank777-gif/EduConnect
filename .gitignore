@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# Environment Variables & Secrets (NEVER COMMIT SENSITIVE KEYS)
+.env
+
+# Database local dumps or credentials
+*.sql.bak
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

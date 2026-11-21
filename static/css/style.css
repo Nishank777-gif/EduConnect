@@ -1,0 +1,637 @@
+/* ==========================================================================
+   EduConnect - Main Stylesheet
+   Modern, Student-Friendly, Clean & Professional Educational Design
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Design Variables (Color Palette & Spacing)
+   -------------------------------------------------------------------------- */
+:root {
+    /* Primary Brand Colors */
+    --primary: #2563eb;          /* Vibrant Royal Blue - Trustworthy & Educational */
+    --primary-hover: #1d4ed8;    /* Darker Blue for hover states */
+    --primary-light: #eff6ff;    /* Soft Blue for backgrounds and active pills */
+
+    /* Secondary Accent Colors */
+    --accent: #0d9488;           /* Teal - Fresh & Student-Friendly */
+    --accent-hover: #0f766e;
+    --accent-light: #f0fdfa;
+
+    /* Status & Badge Colors */
+    --success: #16a34a;          /* Green for 'Free' badges & verified items */
+    --warning: #f59e0b;          /* Amber for star ratings & important notes */
+    --danger: #dc2626;           /* Red for delete / alerts */
+
+    /* Neutral Colors */
+    --bg-main: #f8fafc;          /* Light Slate - Easy on students' eyes */
+    --bg-card: #ffffff;          /* Pure White for cards & containers */
+    --border: #e2e8f0;           /* Subtle borders */
+    --border-hover: #cbd5e1;
+
+    /* Text Colors */
+    --text-primary: #0f172a;     /* Dark Slate 900 for high readability */
+    --text-secondary: #475569;   /* Slate 600 for descriptions & subheadings */
+    --text-muted: #94a3b8;       /* Slate 400 for helper text and dates */
+
+    /* Spacing & Radii */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    --transition: all 0.2s ease-in-out;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Global Base Styles
+   -------------------------------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1; /* Pushes the footer to the bottom of the page */
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout Container
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Navigation Bar
+   -------------------------------------------------------------------------- */
+.navbar {
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+
+.brand-logo span {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. Buttons & Badges
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    color: #ffffff;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--border);
+    color: var(--text-primary);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+.btn-accent {
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent-hover);
+    color: #ffffff;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-free {
+    background-color: #dcfce7;
+    color: var(--success);
+}
+
+.badge-paid {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.badge-category {
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero Section (Homepage Top Banner)
+   -------------------------------------------------------------------------- */
+.hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    padding: 4.5rem 0 4rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    color: #e0e7ff;
+}
+
+.hero-search {
+    max-width: 650px;
+    margin: 0 auto;
+    display: flex;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: 0.4rem;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    color: var(--text-primary);
+}
+
+.hero-search button {
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0 1.75rem;
+    background-color: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.hero-search button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   7. Section Headers & Cards Grid
+   -------------------------------------------------------------------------- */
+.section {
+    padding: 3.5rem 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.section-header p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.75rem;
+}
+
+/* Cards (Base) */
+.card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-hover);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.card-body {
+    flex: 1;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Ratings & Stars */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.stars {
+    color: var(--warning);
+}
+
+.votes-count {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: normal;
+}
+
+/* --------------------------------------------------------------------------
+   8. Categories Pills Grid
+   -------------------------------------------------------------------------- */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.category-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: var(--transition);
+}
+
+.category-card:hover {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   9. Ranking / Top 10 Table
+   -------------------------------------------------------------------------- */
+.table-responsive {
+    overflow-x: auto;
+    background-color: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.ranking-table th {
+    background-color: #f1f5f9;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+.ranking-table td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+.ranking-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ranking-table tr:hover {
+    background-color: var(--bg-main);
+}
+
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. About EduConnect Feature Banner
+   -------------------------------------------------------------------------- */
+.about-section {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+    margin: 2rem 0;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.about-feature {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.about-feature h3 {
+    font-size: 1.15rem;
+    color: var(--primary);
+}
+
+.about-feature p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. Flash Messages / Alerts
+   -------------------------------------------------------------------------- */
+.flash-messages {
+    margin: 1.5rem 0;
+}
+
+.alert {
+    padding: 0.9rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.alert-success {
+    background-color: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.alert-info {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+}
+
+/* --------------------------------------------------------------------------
+   12. Footer
+   -------------------------------------------------------------------------- */
+.footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 3rem 0 1.5rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.footer-brand h3 {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.footer-brand p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.footer-links h4 {
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #1e293b;
+    font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   13. Responsive Media Queries (Mobile Friendly)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem 0;
+        gap: 0.75rem;
+    }
+
+    .nav-links {
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .hero-search {
+        flex-direction: column;
+        gap: 0.5rem;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .hero-search input {
+        border-radius: var(--radius-sm);
+    }
+
+    .hero-search button {
+        padding: 0.75rem;
+        border-radius: var(--radius-sm);
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .about-section {
+        padding: 1.5rem;
+    }
+}

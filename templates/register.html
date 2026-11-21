@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Student Registration - EduConnect{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container" style="max-width: 500px;">
+        <div class="card" style="padding: 2.5rem 2rem;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="font-size: 2.5rem;">🎓</span>
+                <h2 style="font-size: 1.8rem; margin-top: 0.5rem; color: var(--text-primary);">Create Student Account</h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem;">
+                    Join EduConnect to vote for educational platforms, share reviews, and track learning resources
+                </p>
+            </div>
+
+            <!-- Registration Form -->
+            <form action="{{ url_for('register') }}" method="POST">
+                <!-- Username -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label for="username" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-primary);">
+                        Student Username
+                    </label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        required 
+                        placeholder="e.g. alex_learner"
+                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; outline: none; transition: var(--transition);"
+                    >
+                </div>
+
+                <!-- Email -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label for="email" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-primary);">
+                        Student Email Address
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        placeholder="you@student.edu or you@example.com"
+                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; outline: none; transition: var(--transition);"
+                    >
+                </div>
+
+                <!-- Password -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label for="password" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-primary);">
+                        Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        minlength="6"
+                        placeholder="Minimum 6 characters"
+                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; outline: none; transition: var(--transition);"
+                    >
+                </div>
+
+                <!-- Confirm Password -->
+                <div style="margin-bottom: 1.75rem;">
+                    <label for="confirm_password" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-primary);">
+                        Confirm Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="confirm_password" 
+                        name="confirm_password" 
+                        required 
+                        minlength="6"
+                        placeholder="Re-enter your password"
+                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; outline: none; transition: var(--transition);"
+                    >
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem;">
+                    Register Account
+                </button>
+            </form>
+
+            <!-- Switch to Login -->
+            <div style="text-align: center; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--text-secondary);">
+                Already have an account? 
+                <a href="{{ url_for('login') }}" style="font-weight: 600;">Log In here</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

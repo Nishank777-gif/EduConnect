@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Student Login - EduConnect{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container" style="max-width: 480px;">
+        <div class="card" style="padding: 2.5rem 2rem;">
+            <!-- Header -->
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <span style="font-size: 2.5rem;">👋</span>
+                <h2 style="font-size: 1.8rem; margin-top: 0.5rem; color: var(--text-primary);">Student Login</h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.25rem;">
+                    Sign in to vote for educational organisations and share your learning experiences
+                </p>
+            </div>
+
+            <!-- Login Form -->
+            <form action="{{ url_for('login') }}" method="POST">
+                <!-- Username or Email -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label for="identifier" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-primary);">
+                        Username or Email
+                    </label>
+                    <input 
+                        type="text" 
+                        id="identifier" 
+                        name="identifier" 
+                        required 
+                        placeholder="Enter your username or email address"
+                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; outline: none; transition: var(--transition);"
+                    >
+                </div>
+
+                <!-- Password -->
+                <div style="margin-bottom: 1.75rem;">
+                    <label for="password" style="display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; color: var(--text-primary);">
+                        Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        placeholder="Enter your account password"
+                        style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; outline: none; transition: var(--transition);"
+                    >
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem; font-size: 1rem;">
+                    Log In
+                </button>
+            </form>
+
+            <!-- Switch to Register -->
+            <div style="text-align: center; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--text-secondary);">
+                Don't have an account yet? 
+                <a href="{{ url_for('register') }}" style="font-weight: 600;">Register here</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Educational Platforms Explorer - EduConnect{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <!-- Page Title & Header -->
+        <div class="section-header">
+            <h2>Educational Platforms Explorer</h2>
+            <p>Discover and compare top learning organisations, explore subject offerings, and check community student ratings</p>
+        </div>
+
+        <!-- Search and Filter Form -->
+        <div class="card" style="margin-bottom: 2.5rem; padding: 1.25rem;">
+            <form action="{{ url_for('organizations') }}" method="GET" style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                <!-- Keyword Search -->
+                <div style="flex: 2; min-width: 240px;">
+                    <input 
+                        type="text" 
+                        name="q" 
+                        value="{{ search_query or '' }}" 
+                        placeholder="Search by organisation name or subject (e.g. Khan, Python, Math)..." 
+                        style="width: 100%; padding: 0.65rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem;"
+                    >
+                </div>
+
+                <!-- Pricing Model Filter -->
+                <div style="flex: 1; min-width: 160px;">
+                    <select name="pricing" style="width: 100%; padding: 0.65rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background-color: #fff;">
+                        <option value="">All Pricing Models</option>
+                        <option value="Free" {% if selected_pricing == 'Free' %}selected{% endif %}>100% Free</option>
+                        <option value="Freemium" {% if selected_pricing == 'Freemium' %}selected{% endif %}>Freemium (Free Audit)</option>
+                        <option value="Paid" {% if selected_pricing == 'Paid' %}selected{% endif %}>Paid Options</option>
+                    </select>
+                </div>
+
+                <!-- Submit and Clear Buttons -->
+                <div style="display: flex; gap: 0.5rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 0.65rem 1.25rem;">Filter</button>
+                    {% if search_query or selected_pricing %}
+                        <a href="{{ url_for('organizations') }}" class="btn btn-outline" style="padding: 0.65rem 1rem;">Reset</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+        <!-- Results Counter -->
+        <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                Showing <strong>{{ organizations|length }}</strong> educational platforms
+                {% if search_query %} matching "<em>{{ search_query }}</em>"{% endif %}
+                {% if selected_pricing %} with pricing "<em>{{ selected_pricing }}</em>"{% endif %}
+            </p>
+        </div>
+
+        <!-- Platforms Grid -->
+        {% if organizations %}
+            <div class="card-grid">
+                {% for org in organizations %}
+                    <div class="card">
+                        <!-- Card Header: Title & Pricing Badge -->
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">{{ org.name }}</h3>
+                                {% if org.pricing_type == 'Free' %}
+                                    <span class="badge badge-free">100% Free</span>
+                                {% elif org.pricing_type == 'Freemium' %}
+                                    <span class="badge badge-paid">Freemium</span>
+                                {% else %}
+                                    <span class="badge badge-paid">Paid Options</span>
+                                {% endif %}
+                            </div>
+                            <!-- Rating & Vote Count -->
+                            <div class="rating">
+                                <span class="stars">★</span> 
+                                <strong>{{ "%.1f"|format(org.rating) }}</strong> 
+                                <span class="votes-count">({{ org.total_votes }} votes)</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body: Description & Subjects -->
+                        <div class="card-body">
+                            <p>{{ org.description }}</p>
+                            
+                            <div style="margin-top: 1rem;">
+                                <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">Available Subjects:</strong>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem;">
+                                    {% for subject in org.subjects.split(',') %}
+                                        <span class="badge badge-category">{{ subject.strip() }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer: Official Website & Community Action -->
+                        <div class="card-footer">
+                            <a href="{{ org.website_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.45rem 0.85rem;">
+                                Official Website ↗
+                            </a>
+                            <a href="{{ url_for('courses', q=org.name) }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.45rem 0.85rem;">
+                                View Courses
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="card" style="text-align: center; padding: 3rem 1.5rem;">
+                <h3>No Educational Platforms Found</h3>
+                <p style="color: var(--text-secondary); margin: 0.75rem 0 1.5rem;">
+                    We couldn't find any organisations matching your search filters.
+                </p>
+                <a href="{{ url_for('organizations') }}" class="btn btn-primary">Clear All Filters</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

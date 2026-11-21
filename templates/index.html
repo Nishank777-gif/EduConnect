@@ -1,0 +1,385 @@
+{% extends "base.html" %}
+
+{% block title %}EduConnect - Home | Discover Free Courses & Educational Platforms{% endblock %}
+
+{% block content %}
+
+<!-- 1. Hero Section with Search -->
+<section class="hero">
+    <div class="container">
+        <h1>Discover Free Courses & Compare Top Learning Platforms</h1>
+        <p>
+            Explore verified educational resources, discover free learning materials, and read honest student reviews to guide your academic journey.
+        </p>
+
+        <!-- Search Bar -->
+        <form action="{{ url_for('courses') }}" method="GET" class="hero-search">
+            <input 
+                type="text" 
+                name="q" 
+                placeholder="Search courses, skills, or platforms (e.g., Python, Data Science, Mathematics)..." 
+                required
+            >
+            <button type="submit">Search Resources</button>
+        </form>
+    </div>
+</section>
+
+<!-- 2. Popular Learning Categories -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Explore by Topic</h2>
+            <p>Browse educational resources across key academic and technology subjects</p>
+        </div>
+
+        <div class="category-grid">
+            <a href="{{ url_for('courses', category='Programming') }}" class="category-card">
+                💻 Programming
+            </a>
+            <a href="{{ url_for('courses', category='Computer Science') }}" class="category-card">
+                🧠 Computer Science
+            </a>
+            <a href="{{ url_for('courses', category='Mathematics') }}" class="category-card">
+                📐 Mathematics
+            </a>
+            <a href="{{ url_for('courses', category='Science') }}" class="category-card">
+                🔬 Science
+            </a>
+            <a href="{{ url_for('courses', category='Business Studies') }}" class="category-card">
+                📊 Business Studies
+            </a>
+            <a href="{{ url_for('courses', category='English') }}" class="category-card">
+                📚 English & Languages
+            </a>
+            <a href="{{ url_for('courses', category='Technology') }}" class="category-card">
+                ⚙️ Technology & AI
+            </a>
+            <a href="{{ url_for('courses', category='Competitive Examinations') }}" class="category-card">
+                🎯 Competitive Exams
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 3. Featured Educational Platforms -->
+<section class="section" style="background-color: #ffffff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <div class="section-header">
+            <h2>Featured Educational Platforms</h2>
+            <p>Top-rated organisations offering accessible learning materials for students worldwide</p>
+        </div>
+
+        <div class="card-grid">
+            <!-- Platform 1: Khan Academy -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Khan Academy</h3>
+                        <span class="badge badge-free">100% Free</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">★</span> 4.9 <span class="votes-count">(1,420 votes)</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Free world-class education for anyone, anywhere. Comprehensive mastery-based courses in Math, Science, and Computing.</p>
+                    <div style="margin-top: 0.75rem;">
+                        <span class="badge badge-category">Math</span>
+                        <span class="badge badge-category">Science</span>
+                        <span class="badge badge-category">Computing</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.khanacademy.org" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        Visit Website ↗
+                    </a>
+                    <a href="{{ url_for('organizations') }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        View Reviews
+                    </a>
+                </div>
+            </div>
+
+            <!-- Platform 2: MIT OpenCourseWare -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">MIT OpenCourseWare</h3>
+                        <span class="badge badge-free">100% Free</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">★</span> 4.8 <span class="votes-count">(980 votes)</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>A web-based publication of virtually all MIT course content, open and available to the world for independent learning.</p>
+                    <div style="margin-top: 0.75rem;">
+                        <span class="badge badge-category">Computer Science</span>
+                        <span class="badge badge-category">Physics</span>
+                        <span class="badge badge-category">Engineering</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://ocw.mit.edu" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        Visit Website ↗
+                    </a>
+                    <a href="{{ url_for('organizations') }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        View Reviews
+                    </a>
+                </div>
+            </div>
+
+            <!-- Platform 3: freeCodeCamp -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">freeCodeCamp</h3>
+                        <span class="badge badge-free">Free + Certificate</span>
+                    </div>
+                    <div class="rating">
+                        <span class="stars">★</span> 4.9 <span class="votes-count">(1,650 votes)</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>Interactive curriculum that teaches coding through hands-on projects, offering verified developer certifications at zero cost.</p>
+                    <div style="margin-top: 0.75rem;">
+                        <span class="badge badge-category">Web Dev</span>
+                        <span class="badge badge-category">Python</span>
+                        <span class="badge badge-category">Data Science</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="https://www.freecodecamp.org" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        Visit Website ↗
+                    </a>
+                    <a href="{{ url_for('organizations') }}" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        View Reviews
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2.5rem;">
+            <a href="{{ url_for('organizations') }}" class="btn btn-outline" style="padding: 0.7rem 1.8rem;">
+                Browse All Educational Platforms →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 4. Recently Added Free Courses -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Recently Added Free Courses</h2>
+            <p>High-quality courses you can start learning right now with zero fees</p>
+        </div>
+
+        <div class="card-grid">
+            <!-- Course 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge badge-category">Computer Science</span>
+                    <span class="badge badge-free">Free Audit</span>
+                </div>
+                <h3 class="card-title" style="margin-top: 0.5rem; font-size: 1.15rem;">CS50: Introduction to Computer Science</h3>
+                <p style="font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Harvard University</p>
+                <div class="card-body">
+                    <p>An introduction to the intellectual enterprises of computer science and the art of programming (C, Python, SQL, HTML/CSS).</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">⏱ Duration: 12 Weeks (Self-paced)</p>
+                </div>
+                <div class="card-footer">
+                    <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">✓ Free Certificate (edX/CS50)</span>
+                    <a href="https://cs50.harvard.edu/x/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        Enroll Free ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge badge-category">Programming</span>
+                    <span class="badge badge-free">100% Free</span>
+                </div>
+                <h3 class="card-title" style="margin-top: 0.5rem; font-size: 1.15rem;">Scientific Computing with Python</h3>
+                <p style="font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">freeCodeCamp</p>
+                <div class="card-body">
+                    <p>Learn Python basics, data structures, algorithms, and build 5 hands-on projects to earn a verified developer certification.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">⏱ Duration: ~300 Hours (Self-paced)</p>
+                </div>
+                <div class="card-footer">
+                    <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">✓ Free Certificate Included</span>
+                    <a href="https://www.freecodecamp.org/learn/scientific-computing-with-python/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        Enroll Free ↗
+                    </a>
+                </div>
+            </div>
+
+            <!-- Course 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="badge badge-category">Mathematics</span>
+                    <span class="badge badge-free">Free Material</span>
+                </div>
+                <h3 class="card-title" style="margin-top: 0.5rem; font-size: 1.15rem;">Calculus 1A: Differentiation</h3>
+                <p style="font-size: 0.85rem; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">MIT OpenCourseWare</p>
+                <div class="card-body">
+                    <p>Master differentiation rules, derivatives of functions, limits, and applications to optimization with complete MIT problem sets.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">⏱ Duration: 10 Weeks</p>
+                </div>
+                <div class="card-footer">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">Independent Study</span>
+                    <a href="https://ocw.mit.edu" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                        View Course ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2.5rem;">
+            <a href="{{ url_for('courses') }}" class="btn btn-outline" style="padding: 0.7rem 1.8rem;">
+                Explore All Free Courses →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 5. Top 10 Educational Organisations Table -->
+<section class="section" style="background-color: #ffffff; border-top: 1px solid var(--border);">
+    <div class="container">
+        <div class="section-header">
+            <h2>🏆 Top 10 Educational Organisations</h2>
+            <p>Live student community rankings based on verified learner ratings and votes</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th style="width: 70px;">Rank</th>
+                        <th>Organisation</th>
+                        <th>Primary Subjects</th>
+                        <th>Learning Model</th>
+                        <th>Student Rating</th>
+                        <th>Total Votes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="rank-badge">1</span></td>
+                        <td><strong>Khan Academy</strong></td>
+                        <td>Math, Science, Computing</td>
+                        <td><span class="badge badge-free">100% Free</span></td>
+                        <td><span class="stars">★</span> <strong>4.9</strong> / 5.0</td>
+                        <td>1,420</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">2</span></td>
+                        <td><strong>freeCodeCamp</strong></td>
+                        <td>Programming, Web Dev, Python</td>
+                        <td><span class="badge badge-free">100% Free</span></td>
+                        <td><span class="stars">★</span> <strong>4.9</strong> / 5.0</td>
+                        <td>1,650</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">3</span></td>
+                        <td><strong>MIT OpenCourseWare</strong></td>
+                        <td>CS, Mathematics, Engineering</td>
+                        <td><span class="badge badge-free">100% Free</span></td>
+                        <td><span class="stars">★</span> <strong>4.8</strong> / 5.0</td>
+                        <td>980</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">4</span></td>
+                        <td><strong>Coursera (Free Audit)</strong></td>
+                        <td>Computer Science, Business, AI</td>
+                        <td><span class="badge badge-paid">Freemium</span></td>
+                        <td><span class="stars">★</span> <strong>4.7</strong> / 5.0</td>
+                        <td>1,120</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">5</span></td>
+                        <td><strong>edX (Free Audit)</strong></td>
+                        <td>Data Science, Humanities, Tech</td>
+                        <td><span class="badge badge-paid">Freemium</span></td>
+                        <td><span class="stars">★</span> <strong>4.7</strong> / 5.0</td>
+                        <td>890</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">6</span></td>
+                        <td><strong>Stanford Online</strong></td>
+                        <td>AI, Algorithms, Engineering</td>
+                        <td><span class="badge badge-free">Free Access</span></td>
+                        <td><span class="stars">★</span> <strong>4.8</strong> / 5.0</td>
+                        <td>750</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">7</span></td>
+                        <td><strong>Harvard Online</strong></td>
+                        <td>CS50, Data Analysis, Law</td>
+                        <td><span class="badge badge-free">Free Access</span></td>
+                        <td><span class="stars">★</span> <strong>4.8</strong> / 5.0</td>
+                        <td>940</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">8</span></td>
+                        <td><strong>Kaggle Learn</strong></td>
+                        <td>Machine Learning, Python, Pandas</td>
+                        <td><span class="badge badge-free">100% Free</span></td>
+                        <td><span class="stars">★</span> <strong>4.8</strong> / 5.0</td>
+                        <td>810</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">9</span></td>
+                        <td><strong>OpenStax</strong></td>
+                        <td>Math, Physics, Biology, Economics</td>
+                        <td><span class="badge badge-free">100% Free</span></td>
+                        <td><span class="stars">★</span> <strong>4.6</strong> / 5.0</td>
+                        <td>530</td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">10</span></td>
+                        <td><strong>W3Schools</strong></td>
+                        <td>HTML, CSS, JavaScript, SQL</td>
+                        <td><span class="badge badge-free">100% Free</span></td>
+                        <td><span class="stars">★</span> <strong>4.5</strong> / 5.0</td>
+                        <td>920</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- 6. About EduConnect Purpose Section -->
+<section class="section">
+    <div class="container">
+        <div class="about-section">
+            <div style="text-align: center; max-width: 750px; margin: 0 auto;">
+                <span class="badge badge-category" style="margin-bottom: 0.5rem;">About The Platform</span>
+                <h2>Why EduConnect Was Created</h2>
+                <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                    With thousands of learning resources scattered across the internet, finding genuinely free, high-quality educational materials can be difficult for students. EduConnect solves this problem.
+                </p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-feature">
+                    <h3>🔍 Free Learning First</h3>
+                    <p>We specifically index verified free courses, open university courseware, and zero-cost certificates so students never face unexpected paywalls.</p>
+                </div>
+                <div class="about-feature">
+                    <h3>⭐ Verified Student Reviews</h3>
+                    <p>Community reviews written by actual learners help students understand platform quality, course difficulty, and teaching styles before investing time.</p>
+                </div>
+                <div class="about-feature">
+                    <h3>📊 Community Rankings</h3>
+                    <p>Our Top 10 rankings are driven purely by democratic student voting, providing unbiased insights into the most effective learning platforms.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

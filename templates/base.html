@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EduConnect - Discover Learning Platforms & Free Courses{% endblock %}</title>
+    <!-- Link to Central Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- 1. Top Navigation Bar -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <!-- Brand Logo -->
+            <a href="{{ url_for('home') }}" class="brand-logo">
+                🎓 Edu<span>Connect</span>
+            </a>
+
+            <!-- Main Navigation Links -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('organizations') }}">Platforms</a></li>
+                    <li><a href="{{ url_for('courses') }}">Free Courses</a></li>
+                    <li><a href="{{ url_for('dashboard') }}">Statistics</a></li>
+                    <li><a href="{{ url_for('ai_assistant') }}">AI Assistant</a></li>
+                </ul>
+            </nav>
+
+            <!-- Authentication Actions (Login/Register or User Profile) -->
+            <div class="nav-auth">
+                {% if session.get('user_id') %}
+                    <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">
+                        👋 Hi, <strong>{{ session.get('username') }}</strong>
+                    </span>
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">Login</a>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. Flash Messages (For User Alerts and Feedback) -->
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- 3. Dynamic Page Content -->
+    <main>
+        {% block content %}
+        <!-- Child templates (index.html, courses.html, etc.) will inject their content here -->
+        {% endblock %}
+    </main>
+
+    <!-- 4. Global Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Column 1: About Platform -->
+                <div class="footer-brand">
+                    <h3>🎓 EduConnect</h3>
+                    <p>
+                        A student-first discovery platform helping learners explore verified free courses, 
+                        compare top educational platforms, share honest reviews, and view community ratings.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('organizations') }}">Educational Platforms</a></li>
+                        <li><a href="{{ url_for('courses') }}">Free Courses Directory</a></li>
+                        <li><a href="{{ url_for('dashboard') }}">Statistics & Rankings</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Project Info -->
+                <div class="footer-links">
+                    <h4>Competition</h4>
+                    <p style="font-size: 0.9rem; line-height: 1.6;">
+                        Developed for <strong>Hack2Skill Project Competition</strong>.
+                        <br>
+                        Focusing on accessibility in online learning.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 EduConnect. Built with Flask, HTML5, CSS3, JavaScript, and MySQL.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optional Page Specific Scripts -->
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>
